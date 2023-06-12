@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Works - Mondrian</title>
+    <title>ADVENTURE WORK - Mondrian</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,7 +47,8 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <iframe name="mondrian" src="http://localhost:8080/mondrian2/index.html" style="height:300px; width:100%; border:none; align-content:center"> </iframe>
+                                            <iframe name="mondrian" src="http://localhost:8080/mondrian2/index.html" style="height:300px; width:100%; border:none; align-content:center">
+                                            </iframe>
                                         </div>
 
                                     </div>

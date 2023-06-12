@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Works - Order</title>
+    <title>ADVENTURE WORK - Order</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -100,7 +100,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Produk Yang Terjual
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Produk
+                                            Yang Terjual
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
@@ -163,7 +164,7 @@
                                     while ($data = mysqli_fetch_array($produk)) {
                                         $sql = mysqli_query($conn, "SELECT p.name AS name ,Sum(fs.orderqty) AS jumlah FROM product p JOIN fact_sales fs ON p.productid=fs.productid WHERE fs.productid='" . $data['productid'] . "'");
                                         $data = $sql->fetch_array();
-                                        $name [] = $data['name'];
+                                        $name[] = $data['name'];
                                     }
                                     ?>
                                     <span class="mr-2">
@@ -300,7 +301,7 @@
     while ($data = mysqli_fetch_array($produk)) {
         $sql = mysqli_query($conn, "SELECT p.name AS name ,Sum(fs.orderqty) AS jumlah FROM product p JOIN fact_sales fs ON p.productid=fs.productid WHERE fs.productid='" . $data['productid'] . "'");
         $data = $sql->fetch_array();
-        $name [] = $data['name'];
+        $name[] = $data['name'];
         $jumlah[] = $data['jumlah'];
     }
 
@@ -461,8 +462,12 @@
                 labels: <?php echo json_encode($name); ?>,
                 datasets: [{
                     data: <?php echo json_encode($jumlah); ?>,
-                    backgroundColor: ["#d94f00", "#d9c300", "#94d900", "#00d953", "#00d9c7 ", "#0028d9 ", "#8900d9", "#d90033", "#969696 ", "#ff26ac"],
-                    hoverBackgroundColor: ["#fa8948", "#f7e439", "#bef743", "#4af78c", "#52faec", "#4e6efc", "#bd4dff", "#ff4773","black","#ff1c4d"],
+                    backgroundColor: ["#d94f00", "#d9c300", "#94d900", "#00d953", "#00d9c7 ", "#0028d9 ",
+                        "#8900d9", "#d90033", "#969696 ", "#ff26ac"
+                    ],
+                    hoverBackgroundColor: ["#fa8948", "#f7e439", "#bef743", "#4af78c", "#52faec", "#4e6efc",
+                        "#bd4dff", "#ff4773", "black", "#ff1c4d"
+                    ],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
                 }, ],
             },

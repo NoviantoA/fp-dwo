@@ -14,7 +14,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-solid fa-database"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Adventure Works</div>
+            <div class="sidebar-brand-text mx-3">ADVENTURE WORK</div>
         </a>
 
         <!-- Divider -->

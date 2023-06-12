@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Works - Vendor</title>
+    <title>ADVENTURE WORK - Vendor</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -94,10 +94,10 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Jumlah Produk yang Dibeli Pada Tahun Terakhir (2003)</div>
+                                            Jumlah Produk yang Dibeli Sampai Tahun Terakhir (2003)</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php
-                                            $query = mysqli_query($conn, "SELECT SUM(f.OrderQty) kuantitas FROM fact_purchase f JOIN time t ON f.timeID=t.time_id WHERE t.tahun=2004");
+                                            $query = mysqli_query($conn, "SELECT SUM(f.OrderQty) kuantitas FROM purchaseorderdetail f JOIN time t ON f.PurchaseOrderID=t.time_id WHERE t.tahun=2004");
                                             while ($row = mysqli_fetch_array($query)) {
                                                 echo number_format($row['kuantitas'], 0, ".", ",");
                                             }
@@ -120,12 +120,13 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             Rata-Rata Pengeluaran Kepada Vendor</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php
                                             include "connect.php";
 
-                                            $query = mysqli_query($conn, 'SELECT ROUND(AVG(f.SubTotal), 2) avg FROM fact_purchase f JOIN time t ON f.timeID=t.time_id WHERE t.tahun=2004');
+                                            $query = mysqli_query($conn, 'SELECT ROUND(AVG(f.SubTotal), 2) avg FROM fact_purchase f JOIN time t ON f.timeID=t.time_id');
                                             $row = mysqli_fetch_array($query);
-                                            echo '$' . number_format($row['avg'], 0, ".", ",")?></div>
+                                            echo '$' . number_format($row['avg'], 0, ".", ",") ?></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -148,12 +149,10 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Vendor yang Menerima Pembelian Terbesar
                                 </h6>
                                 <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                         <div class="dropdown-header">Dropdown Header:</div>
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
@@ -180,12 +179,10 @@
                                     Pengiriman</h6>
 
                                 <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                         <div class="dropdown-header">Dropdown Header:</div>
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
@@ -253,7 +250,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Vendor ID</th>
@@ -275,11 +272,11 @@
                                     $query = mysqli_query($conn, 'SELECT *  FROM vendor where VendorID');
                                     while ($data = mysqli_fetch_array($query)) {
                                     ?>
-                                    <tr>
-                                        <td><?php echo $data['VendorID'] ?></td>
-                                        <td><?php echo $data['AccountNumber'] ?></td>
-                                        <td><?php echo $data['Name'] ?></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?php echo $data['VendorID'] ?></td>
+                                            <td><?php echo $data['AccountNumber'] ?></td>
+                                            <td><?php echo $data['Name'] ?></td>
+                                        </tr>
                                     <?php
                                     }
                                     ?>
@@ -322,6 +319,14 @@
         <script src="vendor/js/chart-area-vendor.js"></script>
         <script src="vendor/js/chart-pie-vendor.js"></script>
 
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -335,38 +340,24 @@
         <!---->
 
 
-        <!-- DataTables  & Plugins -->
-        <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="../../plugins/jszip/jszip.min.js"></script>
-        <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
         <script>
-        $(function() {
-            $("#dataTable").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
-            $('#dataTable').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
+            $(function() {
+                $("#dataTable").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#dataTable_wrapper .col-md-6:eq(0)');
+                $('#dataTable').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
             });
-        });
         </script>
 
 
